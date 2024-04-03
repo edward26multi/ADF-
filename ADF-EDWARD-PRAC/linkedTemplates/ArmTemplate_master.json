@@ -7,6 +7,10 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "ADF-EDWARD-PRAC"
 		},
+		"default_properties_GL_KV_NAME_value": {
+			"type": "string",
+			"defaultValue": "UnityCatalogBlobConnString"
+		},
 		"containerUri": {
 			"type": "string",
 			"metadata": "URI to storage account containing linked ARM templates"
@@ -33,6 +37,9 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
+					},
+					"default_properties_GL_KV_NAME_value": {
+						"value": "[parameters('default_properties_GL_KV_NAME_value')]"
 					}
 				}
 			},

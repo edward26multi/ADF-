@@ -5,6 +5,9 @@
 		"factoryName": {
 			"value": "ADF-EDWARD-PRAC"
 		},
+		"default_properties_GL_KV_NAME_value": {
+			"value": "UnityCatalogBlobConnString"
+		},
 		"containerUri": {
 			"value": ""
 		},

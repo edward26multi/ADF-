@@ -6,6 +6,10 @@
 			"type": "string",
 			"metadata": "Data Factory name",
 			"defaultValue": "ADF-EDWARD-PRAC"
+		},
+		"default_properties_GL_KV_NAME_value": {
+			"type": "string",
+			"defaultValue": "UnityCatalogBlobConnString"
 		}
 	},
 	"variables": {
@@ -32,6 +36,18 @@
 					"elapsedTimeMetric": {}
 				},
 				"annotations": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/default')]",
+			"type": "Microsoft.DataFactory/factories/globalparameters",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"GL_KV_NAME": {
+					"type": "string",
+					"value": "[parameters('default_properties_GL_KV_NAME_value')]"
+				}
 			},
 			"dependsOn": []
 		}
