@@ -1,5 +1,13 @@
 {
 	"name": "ADF-EDWARD-PRAC",
+	"properties": {
+		"globalParameters": {
+			"GL_KV_NAME": {
+				"type": "string",
+				"value": "UnityCatalogBlobConnString"
+			}
+		}
+	},
 	"location": "eastus",
 	"identity": {
 		"type": "SystemAssigned",
