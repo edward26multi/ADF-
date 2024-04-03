@@ -1,0 +1,9 @@
+{
+	"name": "ADF-EDWARD-PRAC",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "0057d5aa-fd11-4f50-b837-75a472aeeed7",
+		"tenantId": "01ea1ee8-0c15-4160-9922-f383f39a19be"
+	}
+}
