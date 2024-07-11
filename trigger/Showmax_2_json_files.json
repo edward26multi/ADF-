@@ -1,0 +1,35 @@
+{
+	"name": "Showmax_2_json_files",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "pl_comcastfeeds_s3Bucket_to_Datalake_bronze",
+					"type": "PipelineReference"
+				},
+				"parameters": {
+					"windowRunDate": "@trigger().scheduledTime"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Day",
+				"interval": 1,
+				"startTime": "2024-07-11T15:48:00",
+				"timeZone": "South Africa Standard Time",
+				"schedule": {
+					"minutes": [
+						0
+					],
+					"hours": [
+						18
+					]
+				}
+			}
+		}
+	}
+}
