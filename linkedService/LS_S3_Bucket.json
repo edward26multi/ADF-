@@ -1,0 +1,12 @@
+{
+	"name": "LS_S3_Bucket",
+	"properties": {
+		"annotations": [],
+		"type": "HttpServer",
+		"typeProperties": {
+			"url": "https://earth-res-plcli-prod-atom-feeds-showmax-af-south-1.s3.af-south-1.amazonaws.com/atom-earth-feeds-prod/prod.ce.af-south-1.eu-aws.prdsummerdc.com/SHOWMAX/ZZ/generic-collection-v1/",
+			"enableServerCertificateValidation": true,
+			"authenticationType": "Anonymous"
+		}
+	}
+}
