@@ -1,0 +1,110 @@
+{
+	"name": "Send notification to a channel in Microsoft Teams1",
+	"properties": {
+		"description": "Use this pipeline template to send notification on a teams channel. \n\nhttps://adf.azure.com/en-us/monitoring/pipelineruns/f90465ff-b8ea-4f0f-9110-178164bc8ee4?factory=/subscriptions/7b68d2b5-dfbe-46e1-938f-98ed143b7953/resourceGroups/demo101-rg/providers/Microsoft.DataFactory/factories/demofactory101",
+		"activities": [
+			{
+				"name": "Set Facts",
+				"description": "Details on Fact schema for teams messages: https://adaptivecards.io/explorer/Fact.html",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "messageCardString",
+					"value": {
+						"value": "{\n    \"@type\": \"MessageCard\",\n    \"@context\": \"http://schema.org/extensions\",\n    \"themeColor\": \"@{pipeline().parameters.themeColor}\",\n    \"summary\": \"Pipeline status alert message​​​​\",\n    \"sections\": [\n        {\n            \"activityTitle\": \"Pipeline alert​​​​\",\n            \"facts\": [\n               {\n                    \"name\": \"Activated Severity:\",\n                    \"value\": \"@{pipeline().parameters.severityLevel}\"\n                },\n                {\n                    \"name\": \"Pipeline RunId:\",\n                    \"value\": \"@{pipeline().parameters.pipelineRunId}\"\n                },\n                {\n                    \"name\": \"Activity name:\",\n                    \"value\": \"@{pipeline().parameters.activityName}\"\n                },\n                {\n                    \"name\": \"Activity status:\",\n                    \"value\": \"@{pipeline().parameters.activityStatus}\"\n                },\n                {\n                    \"name\": \"Execution duration (s):\",\n                    \"value\": \"@{pipeline().parameters.activityDuration}\"\n                },\n                {\n                    \"name\": \"Message\",\n                    \"value\": \"@{pipeline().parameters.activityMessage}\"\n                },\n                {\n                    \"name\": \"Notification time (UTC):\",\n                    \"value\": \"@{utcnow()}\"\n                },\n                {\n                    \"name\": \"Data Factory name:\",\n                    \"value\": \"@{pipeline().DataFactory}\"\n                }\n            ],\n            \"markdown\": true\n        }\n    ],\n    \"potentialAction\": [\n        {\n            \"@type\": \"OpenUri\",\n            \"name\": \"View pipeline run\",\n            \"targets\": [\n                {\n                    \"os\": \"default\",\n                    \"uri\": \"@{concat('https://adf.azure.com/monitoring/pipelineruns/',pipeline().parameters.pipelineRunId,'?factory=/subscriptions/',pipeline().parameters.dataFactorySubscription,'/resourceGroups/',pipeline().parameters.dataFactoryResourceGroup,'/providers/Microsoft.DataFactory/factories/',pipeline().DataFactory)}\"\n                },\n  {\n            \"@type\": \"OpenUri\",\n            \"name\": \"Acknowledge Alarm\",\n            \"targets\": [\n                {\n                    \"os\": \"default\",\n                    \"uri\": \"@{concat('https://adf.azure.com/monitoring/pipelineruns/',pipeline().parameters.pipelineRunId,'?factory=/subscriptions/',pipeline().parameters.dataFactorySubscription,'/resourceGroups/',pipeline().parameters.dataFactoryResourceGroup,'/providers/Microsoft.DataFactory/factories/',pipeline().DataFactory)}\"\n                }\n            ]\n        }\n    ]\n}",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Call Teams Webhook",
+				"description": "Invokes teams channel's webbook.",
+				"type": "WebActivity",
+				"dependsOn": [
+					{
+						"activity": "Set Facts",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"method": "POST",
+					"url": {
+						"value": "@pipeline().parameters.teamsWebhookUrl",
+						"type": "Expression"
+					},
+					"body": {
+						"value": "@json(variables('messageCardString'))",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"parameters": {
+			"dataFactorySubscription": {
+				"type": "string",
+				"defaultValue": "608063a1-09c2-49c1-a3db-03c67f87bf9d"
+			},
+			"dataFactoryResourceGroup": {
+				"type": "string",
+				"defaultValue": "rg-sde_engineeringtools-dev-westeurope-001"
+			},
+			"pipelineRunId": {
+				"type": "string",
+				"defaultValue": "Overwrite the value from the calling activity "
+			},
+			"teamsWebhookUrl": {
+				"type": "string",
+				"defaultValue": "https://naspers.webhook.office.com/webhookb2/07cca681-85a4-4537-885f-f5a72d9c1d18@01ea1ee8-0c15-4160-9922-f383f39a19be/IncomingWebhook/256fecd5ee6149b4ad3563966a4285b6/034c7867-9aa3-4d07-8e24-388ff1f53dc2"
+			},
+			"activityName": {
+				"type": "string",
+				"defaultValue": "Overwrite the value from the calling activity "
+			},
+			"activityMessage": {
+				"type": "string",
+				"defaultValue": "Overwrite the value from the calling activity "
+			},
+			"activityDuration": {
+				"type": "string",
+				"defaultValue": "Overwrite the value from the calling activity "
+			},
+			"activityStatus": {
+				"type": "string",
+				"defaultValue": "Failed"
+			},
+			"severityLevel": {
+				"type": "string",
+				"defaultValue": "1"
+			},
+			"themeColor": {
+				"type": "string",
+				"defaultValue": "0076D7"
+			}
+		},
+		"variables": {
+			"messageCardString": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "Monitoring"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-06-01T09:19:35Z"
+	}
+}

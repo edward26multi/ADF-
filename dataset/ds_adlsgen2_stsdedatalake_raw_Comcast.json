@@ -1,0 +1,385 @@
+{
+	"name": "ds_adlsgen2_stsdedatalake_raw_Comcast",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "trainforunity_datalake",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"ds_FolderPath": {
+				"type": "string"
+			},
+			"ds_Filename": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().ds_Filename",
+					"type": "Expression"
+				},
+				"folderPath": {
+					"value": "@dataset().ds_FolderPath",
+					"type": "Expression"
+				},
+				"fileSystem": "lakesde001-raw"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"dateModified": {
+					"type": "string"
+				},
+				"deviceRef": {
+					"type": "object",
+					"properties": {
+						"devGroup1": {
+							"type": "object",
+							"properties": {
+								"devices": {
+									"type": "object",
+									"properties": {
+										"TV:LG": {
+											"type": "object"
+										},
+										"TV:VIZIO": {
+											"type": "object"
+										},
+										"MOBILE:IOS": {
+											"type": "object"
+										},
+										"TABLET:IOS": {
+											"type": "object"
+										},
+										"TV:SAMSUNG": {
+											"type": "object"
+										},
+										"COMPUTER:PC": {
+											"type": "object"
+										},
+										"COMPUTER:MAC": {
+											"type": "object"
+										},
+										"CONSOLE:XBOX": {
+											"type": "object"
+										},
+										"TV:ANDROIDTV": {
+											"type": "object"
+										},
+										"TABLET:FIRETV": {
+											"type": "object"
+										},
+										"MOBILE:ANDROID": {
+											"type": "object"
+										},
+										"SETTOPBOX:ROKU": {
+											"type": "object"
+										},
+										"TABLET:ANDROID": {
+											"type": "object"
+										},
+										"TV:HISENSE-VIDAA": {
+											"type": "object"
+										},
+										"IPSETTOPBOX:FIRETV": {
+											"type": "object"
+										},
+										"CONSOLE:PLAYSTATION": {
+											"type": "object"
+										},
+										"IPSETTOPBOX:APPLETV": {
+											"type": "object"
+										},
+										"IPSETTOPBOX:ANDROIDTV": {
+											"type": "object"
+										},
+										"IPSETTOPBOX:CHROMECAST": {
+											"type": "object"
+										},
+										"IPSETTOPBOX:XFINITY-X1": {
+											"type": "object"
+										},
+										"IPSETTOPBOX:XFINITY-FLEX": {
+											"type": "object"
+										}
+									}
+								},
+								"linkType": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				},
+				"subscriptionRef": {
+					"type": "object",
+					"properties": {
+						"D2C": {
+							"type": "object",
+							"properties": {
+								"subscription": {
+									"type": "string"
+								},
+								"model": {
+									"type": "array",
+									"items": {
+										"type": "string"
+									}
+								}
+							}
+						},
+						"Free": {
+							"type": "object",
+							"properties": {
+								"subscription": {
+									"type": "string"
+								},
+								"model": {
+									"type": "array",
+									"items": {
+										"type": "string"
+									}
+								}
+							}
+						}
+					}
+				},
+				"providerRef": {
+					"type": "object",
+					"properties": {
+						"Africa Magic": {
+							"type": "object",
+							"properties": {
+								"name": {
+									"type": "string"
+								},
+								"logos": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"type": {
+												"type": "string"
+											},
+											"key": {
+												"type": "string"
+											},
+											"template": {
+												"type": "string"
+											}
+										}
+									}
+								}
+							}
+						},
+						"kykNET": {
+							"type": "object",
+							"properties": {
+								"name": {
+									"type": "string"
+								},
+								"logos": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"type": {
+												"type": "string"
+											},
+											"key": {
+												"type": "string"
+											},
+											"template": {
+												"type": "string"
+											}
+										}
+									}
+								}
+							}
+						},
+						"Akwaaba Magic": {
+							"type": "object",
+							"properties": {
+								"name": {
+									"type": "string"
+								},
+								"logos": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"type": {
+												"type": "string"
+											},
+											"key": {
+												"type": "string"
+											},
+											"template": {
+												"type": "string"
+											}
+										}
+									}
+								}
+							}
+						},
+						"HBO": {
+							"type": "object",
+							"properties": {
+								"name": {
+									"type": "string"
+								},
+								"logos": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"type": {
+												"type": "string"
+											},
+											"key": {
+												"type": "string"
+											},
+											"template": {
+												"type": "string"
+											}
+										}
+									}
+								}
+							}
+						},
+						"Showmax": {
+							"type": "object",
+							"properties": {
+								"name": {
+									"type": "string"
+								},
+								"logos": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"type": {
+												"type": "string"
+											},
+											"key": {
+												"type": "string"
+											},
+											"template": {
+												"type": "string"
+											}
+										}
+									}
+								}
+							}
+						},
+						"Kix": {
+							"type": "object",
+							"properties": {
+								"name": {
+									"type": "string"
+								},
+								"logos": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"type": {
+												"type": "string"
+											},
+											"key": {
+												"type": "string"
+											},
+											"template": {
+												"type": "string"
+											}
+										}
+									}
+								}
+							}
+						},
+						"Showtime": {
+							"type": "object",
+							"properties": {
+								"name": {
+									"type": "string"
+								},
+								"logos": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"type": {
+												"type": "string"
+											},
+											"key": {
+												"type": "string"
+											},
+											"template": {
+												"type": "string"
+											}
+										}
+									}
+								}
+							}
+						},
+						"MULTICHOICE": {
+							"type": "object",
+							"properties": {
+								"name": {
+									"type": "string"
+								},
+								"logos": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"type": {
+												"type": "string"
+											},
+											"key": {
+												"type": "string"
+											},
+											"template": {
+												"type": "string"
+											}
+										}
+									}
+								}
+							}
+						},
+						"Universal Studios": {
+							"type": "object",
+							"properties": {
+								"name": {
+									"type": "string"
+								},
+								"logos": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"type": {
+												"type": "string"
+											},
+											"key": {
+												"type": "string"
+											},
+											"template": {
+												"type": "string"
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

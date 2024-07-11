@@ -1,0 +1,961 @@
+{
+	"name": "pl_comcastfeeds_s3Bucket_to_Datalake_bronze",
+	"properties": {
+		"activities": [
+			{
+				"name": "Main_json",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "HttpReadSettings",
+							"requestMethod": "GET"
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "JsonSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "JsonWriteSettings"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "ls_S3Bucket_ComcastFeeds",
+						"type": "DatasetReference",
+						"parameters": {
+							"RelativeURL": "main.json"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_adlsgen2_stsdedatalake_raw_Comcast",
+						"type": "DatasetReference",
+						"parameters": {
+							"ds_FolderPath": {
+								"value": "ComcastFeedRaw/Bronze/Year=@{formatDateTime(addDays(pipeline().parameters.windowRunDate,0),'yyyy')}/Month=@{formatDateTime(addDays(pipeline().parameters.windowRunDate,0),'MM')}/Day=@{formatDateTime(addDays(pipeline().parameters.windowRunDate,0),'%d')}",
+								"type": "Expression"
+							},
+							"ds_Filename": {
+								"value": "main.json",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			},
+			{
+				"name": "Ref_data_json",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "HttpReadSettings",
+							"requestMethod": "GET"
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "JsonSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "JsonWriteSettings"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "ls_S3Bucket_ComcastFeeds",
+						"type": "DatasetReference",
+						"parameters": {
+							"RelativeURL": "ref_data.json"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_adlsgen2_stsdedatalake_raw_Comcast",
+						"type": "DatasetReference",
+						"parameters": {
+							"ds_FolderPath": {
+								"value": "ComcastFeedRaw/Bronze/Year=@{formatDateTime(addDays(pipeline().parameters.windowRunDate,0),'yyyy')}/Month=@{formatDateTime(addDays(pipeline().parameters.windowRunDate,0),'MM')}/Day=@{formatDateTime(addDays(pipeline().parameters.windowRunDate,0),'%d')}/Generic",
+								"type": "Expression"
+							},
+							"ds_Filename": {
+								"value": "Ref_data.json",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			},
+			{
+				"name": "ref_data_en-US_json",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "HttpReadSettings",
+							"requestMethod": "GET"
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "JsonSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "JsonWriteSettings"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "ls_S3Bucket_ComcastFeeds",
+						"type": "DatasetReference",
+						"parameters": {
+							"RelativeURL": "ref_data_en-US.json"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_adlsgen2_stsdedatalake_raw_Comcast",
+						"type": "DatasetReference",
+						"parameters": {
+							"ds_FolderPath": {
+								"value": "ComcastFeedRaw/Bronze/Year=@{formatDateTime(addDays(pipeline().parameters.windowRunDate,0),'yyyy')}/Month=@{formatDateTime(addDays(pipeline().parameters.windowRunDate,0),'MM')}/Day=@{formatDateTime(addDays(pipeline().parameters.windowRunDate,0),'%d')}/en-US",
+								"type": "Expression"
+							},
+							"ds_Filename": {
+								"value": "Ref_data_en_US.json",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			},
+			{
+				"name": "Home_New_Returning",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "HttpReadSettings",
+							"requestMethod": "GET"
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "JsonSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "JsonWriteSettings"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "ls_S3Bucket_ComcastFeeds",
+						"type": "DatasetReference",
+						"parameters": {
+							"RelativeURL": "Home New & Returning.json"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_adlsgen2_stsdedatalake_raw_Comcast",
+						"type": "DatasetReference",
+						"parameters": {
+							"ds_FolderPath": {
+								"value": "ComcastFeedRaw/Bronze/Year=@{formatDateTime(addDays(pipeline().parameters.windowRunDate,0),'yyyy')}/Month=@{formatDateTime(addDays(pipeline().parameters.windowRunDate,0),'MM')}/Day=@{formatDateTime(addDays(pipeline().parameters.windowRunDate,0),'%d')}/Generic",
+								"type": "Expression"
+							},
+							"ds_Filename": {
+								"value": "Home_new_returning.json",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			},
+			{
+				"name": "Home New_Returning_en-US",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "HttpReadSettings",
+							"requestMethod": "GET"
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "JsonSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "JsonWriteSettings"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "ls_S3Bucket_ComcastFeeds",
+						"type": "DatasetReference",
+						"parameters": {
+							"RelativeURL": "Home New & Returning_en-US.json"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_adlsgen2_stsdedatalake_raw_Comcast",
+						"type": "DatasetReference",
+						"parameters": {
+							"ds_FolderPath": {
+								"value": "ComcastFeedRaw/Bronze/Year=@{formatDateTime(addDays(pipeline().parameters.windowRunDate,0),'yyyy')}/Month=@{formatDateTime(addDays(pipeline().parameters.windowRunDate,0),'MM')}/Day=@{formatDateTime(addDays(pipeline().parameters.windowRunDate,0),'%d')}/en-US",
+								"type": "Expression"
+							},
+							"ds_Filename": {
+								"value": "Home_new_returning_en_US.json",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			},
+			{
+				"name": "Only on Showmax",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "HttpReadSettings",
+							"requestMethod": "GET"
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "JsonSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "JsonWriteSettings"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "ls_S3Bucket_ComcastFeeds",
+						"type": "DatasetReference",
+						"parameters": {
+							"RelativeURL": "Only on Showmax.json"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_adlsgen2_stsdedatalake_raw_Comcast",
+						"type": "DatasetReference",
+						"parameters": {
+							"ds_FolderPath": {
+								"value": "ComcastFeedRaw/Bronze/Year=@{formatDateTime(addDays(pipeline().parameters.windowRunDate,0),'yyyy')}/Month=@{formatDateTime(addDays(pipeline().parameters.windowRunDate,0),'MM')}/Day=@{formatDateTime(addDays(pipeline().parameters.windowRunDate,0),'%d')}/Generic",
+								"type": "Expression"
+							},
+							"ds_Filename": {
+								"value": "Only_on_showmax.json",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			},
+			{
+				"name": "Only on Showmax_en-US",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "HttpReadSettings",
+							"requestMethod": "GET"
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "JsonSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "JsonWriteSettings"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "ls_S3Bucket_ComcastFeeds",
+						"type": "DatasetReference",
+						"parameters": {
+							"RelativeURL": "Only on Showmax_en-US.json"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_adlsgen2_stsdedatalake_raw_Comcast",
+						"type": "DatasetReference",
+						"parameters": {
+							"ds_FolderPath": {
+								"value": "ComcastFeedRaw/Bronze/Year=@{formatDateTime(addDays(pipeline().parameters.windowRunDate,0),'yyyy')}/Month=@{formatDateTime(addDays(pipeline().parameters.windowRunDate,0),'MM')}/Day=@{formatDateTime(addDays(pipeline().parameters.windowRunDate,0),'%d')}/en-US",
+								"type": "Expression"
+							},
+							"ds_Filename": {
+								"value": "Only_on_Showmax_en_US.json",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			},
+			{
+				"name": "Trending",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "HttpReadSettings",
+							"requestMethod": "GET"
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "JsonSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "JsonWriteSettings"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "ls_S3Bucket_ComcastFeeds",
+						"type": "DatasetReference",
+						"parameters": {
+							"RelativeURL": "Trending.json"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_adlsgen2_stsdedatalake_raw_Comcast",
+						"type": "DatasetReference",
+						"parameters": {
+							"ds_FolderPath": {
+								"value": "ComcastFeedRaw/Bronze/Year=@{formatDateTime(addDays(pipeline().parameters.windowRunDate,0),'yyyy')}/Month=@{formatDateTime(addDays(pipeline().parameters.windowRunDate,0),'MM')}/Day=@{formatDateTime(addDays(pipeline().parameters.windowRunDate,0),'%d')}/Generic",
+								"type": "Expression"
+							},
+							"ds_Filename": {
+								"value": "Trending.json",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			},
+			{
+				"name": "Trending_en-US",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "HttpReadSettings",
+							"requestMethod": "GET"
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "JsonSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "JsonWriteSettings"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "ls_S3Bucket_ComcastFeeds",
+						"type": "DatasetReference",
+						"parameters": {
+							"RelativeURL": "Trending_en-US.json"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_adlsgen2_stsdedatalake_raw_Comcast",
+						"type": "DatasetReference",
+						"parameters": {
+							"ds_FolderPath": {
+								"value": "ComcastFeedRaw/Bronze/Year=@{formatDateTime(addDays(pipeline().parameters.windowRunDate,0),'yyyy')}/Month=@{formatDateTime(addDays(pipeline().parameters.windowRunDate,0),'MM')}/Day=@{formatDateTime(addDays(pipeline().parameters.windowRunDate,0),'%d')}/en-US",
+								"type": "Expression"
+							},
+							"ds_Filename": {
+								"value": "Trending_en_US.json",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			},
+			{
+				"name": "Send Teams Notification",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Main_json",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "Send notification to a channel in Microsoft Teams1",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"pipelineRunId": {
+							"value": "@pipeline().RunId",
+							"type": "Expression"
+						},
+						"activityName": {
+							"value": "@pipeline().Pipeline",
+							"type": "Expression"
+						},
+						"activityMessage": {
+							"value": "@activity('Main_json').Error.Message",
+							"type": "Expression"
+						},
+						"activityDuration": {
+							"value": "@activity('Main_json').Duration",
+							"type": "Expression"
+						},
+						"activityStatus": {
+							"value": "@activity('Main_json').Status",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "Send Teams Notification_copy1",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Ref_data_json",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "Send notification to a channel in Microsoft Teams1",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"pipelineRunId": {
+							"value": "@pipeline().RunId",
+							"type": "Expression"
+						},
+						"activityName": {
+							"value": "@pipeline().Pipeline",
+							"type": "Expression"
+						},
+						"activityMessage": {
+							"value": "@activity('Ref_data_json').Error.Message",
+							"type": "Expression"
+						},
+						"activityDuration": {
+							"value": "@activity('Ref_data_json').Duration",
+							"type": "Expression"
+						},
+						"activityStatus": {
+							"value": "@activity('Ref_data_json').Status",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "Send Teams Notification_copy1_copy1",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "ref_data_en-US_json",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "Send notification to a channel in Microsoft Teams1",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"pipelineRunId": {
+							"value": "@pipeline().RunId",
+							"type": "Expression"
+						},
+						"activityName": {
+							"value": "@pipeline().Pipeline",
+							"type": "Expression"
+						},
+						"activityMessage": {
+							"value": "@activity('ref_data_en-US_json').Error.Message",
+							"type": "Expression"
+						},
+						"activityDuration": {
+							"value": "@activity('ref_data_en-US_json').Duration",
+							"type": "Expression"
+						},
+						"activityStatus": {
+							"value": "@activity('ref_data_en-US_json').Status",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "Send Teams Notification_copy1_copy1_copy1",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Home_New_Returning",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "Send notification to a channel in Microsoft Teams1",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"pipelineRunId": {
+							"value": "@pipeline().RunId",
+							"type": "Expression"
+						},
+						"activityName": {
+							"value": "@pipeline().Pipeline",
+							"type": "Expression"
+						},
+						"activityMessage": {
+							"value": "@activity('Home_New_Returning').Error.Message",
+							"type": "Expression"
+						},
+						"activityDuration": {
+							"value": "@activity('Home_New_Returning').Duration",
+							"type": "Expression"
+						},
+						"activityStatus": {
+							"value": "@activity('Home_New_Returning').Status",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "Send Teams Notification_copy1_copy1_copy1_copy1",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Home New_Returning_en-US",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "Send notification to a channel in Microsoft Teams1",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"pipelineRunId": {
+							"value": "@pipeline().RunId",
+							"type": "Expression"
+						},
+						"activityName": {
+							"value": "@pipeline().Pipeline",
+							"type": "Expression"
+						},
+						"activityMessage": {
+							"value": "@activity('Home New_Returning_en-US').Error.Message",
+							"type": "Expression"
+						},
+						"activityDuration": {
+							"value": "@activity('Home New_Returning_en-US').Duration",
+							"type": "Expression"
+						},
+						"activityStatus": {
+							"value": "@activity('Home New_Returning_en-US').Status",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "Send Teams Notification_copy1_copy1_copy1_copy1_copy1",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Only on Showmax",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "Send notification to a channel in Microsoft Teams1",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"pipelineRunId": {
+							"value": "@pipeline().RunId",
+							"type": "Expression"
+						},
+						"activityName": {
+							"value": "@pipeline().Pipeline",
+							"type": "Expression"
+						},
+						"activityMessage": {
+							"value": "@activity('Only on Showmax').Error.Message",
+							"type": "Expression"
+						},
+						"activityDuration": {
+							"value": "@activity('Only on Showmax').Duration",
+							"type": "Expression"
+						},
+						"activityStatus": {
+							"value": "@activity('Only on Showmax').Status",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "Send Teams Notification_2",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Only on Showmax_en-US",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "Send notification to a channel in Microsoft Teams1",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"pipelineRunId": {
+							"value": "@pipeline().RunId",
+							"type": "Expression"
+						},
+						"activityName": {
+							"value": "@pipeline().Pipeline",
+							"type": "Expression"
+						},
+						"activityMessage": {
+							"value": "@activity('Only on Showmax_en-US').Error.Message",
+							"type": "Expression"
+						},
+						"activityDuration": {
+							"value": "@activity('Only on Showmax_en-US').Duration",
+							"type": "Expression"
+						},
+						"activityStatus": {
+							"value": "@activity('Only on Showmax_en-US').Status",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "Send Teams Notification_2_copy1",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Trending",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "Send notification to a channel in Microsoft Teams1",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"pipelineRunId": {
+							"value": "@pipeline().RunId",
+							"type": "Expression"
+						},
+						"activityName": {
+							"value": "@pipeline().Pipeline",
+							"type": "Expression"
+						},
+						"activityMessage": {
+							"value": "@activity('Trending').Error.Message",
+							"type": "Expression"
+						},
+						"activityDuration": {
+							"value": "@activity('Trending').Duration",
+							"type": "Expression"
+						},
+						"activityStatus": {
+							"value": "@activity('Trending').Status",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "Send Teams Notification_2_copy1_copy1",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Trending_en-US",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "Send notification to a channel in Microsoft Teams1",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"pipelineRunId": {
+							"value": "@pipeline().RunId",
+							"type": "Expression"
+						},
+						"activityName": {
+							"value": "@pipeline().Pipeline",
+							"type": "Expression"
+						},
+						"activityMessage": {
+							"value": "@activity('Trending_en-US').Error.Message",
+							"type": "Expression"
+						},
+						"activityDuration": {
+							"value": "@activity('Trending_en-US').Duration",
+							"type": "Expression"
+						},
+						"activityStatus": {
+							"value": "@activity('Trending_en-US').Status",
+							"type": "Expression"
+						}
+					}
+				}
+			}
+		],
+		"parameters": {
+			"windowRunDate": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "Project_Earth - Comcast feed"
+		},
+		"annotations": []
+	}
+}

@@ -1,0 +1,26 @@
+{
+	"name": "ls_S3Bucket_ComcastFeeds",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_S3_Bucket",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"RelativeURL": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "HttpServerLocation",
+				"relativeUrl": {
+					"value": "@dataset().RelativeURL",
+					"type": "Expression"
+				}
+			}
+		},
+		"schema": {}
+	}
+}
