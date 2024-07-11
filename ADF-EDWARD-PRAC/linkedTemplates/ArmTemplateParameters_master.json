@@ -5,6 +5,18 @@
 		"factoryName": {
 			"value": "ADF-EDWARD-PRAC"
 		},
+		"trainforunity_datalake_accountKey": {
+			"value": ""
+		},
+		"LS_S3_Bucket_properties_typeProperties_url": {
+			"value": "https://earth-res-plcli-prod-atom-feeds-showmax-af-south-1.s3.af-south-1.amazonaws.com/atom-earth-feeds-prod/prod.ce.af-south-1.eu-aws.prdsummerdc.com/SHOWMAX/ZZ/generic-collection-v1/"
+		},
+		"trainforunity_datalake_properties_typeProperties_url": {
+			"value": "https://trainforunitycatalog.dfs.core.windows.net/"
+		},
+		"Showmax_2_json_files_properties_pl_comcastfeeds_s3Bucket_to_Datalake_bronze_parameters_windowRunDate": {
+			"value": "@trigger().scheduledTime"
+		},
 		"default_properties_GL_KV_NAME_value": {
 			"value": "UnityCatalogBlobConnString"
 		},

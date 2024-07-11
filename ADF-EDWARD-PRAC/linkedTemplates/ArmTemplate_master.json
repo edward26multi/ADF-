@@ -7,6 +7,22 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "ADF-EDWARD-PRAC"
 		},
+		"trainforunity_datalake_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'trainforunity_datalake'"
+		},
+		"LS_S3_Bucket_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://earth-res-plcli-prod-atom-feeds-showmax-af-south-1.s3.af-south-1.amazonaws.com/atom-earth-feeds-prod/prod.ce.af-south-1.eu-aws.prdsummerdc.com/SHOWMAX/ZZ/generic-collection-v1/"
+		},
+		"trainforunity_datalake_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://trainforunitycatalog.dfs.core.windows.net/"
+		},
+		"Showmax_2_json_files_properties_pl_comcastfeeds_s3Bucket_to_Datalake_bronze_parameters_windowRunDate": {
+			"type": "string",
+			"defaultValue": "@trigger().scheduledTime"
+		},
 		"default_properties_GL_KV_NAME_value": {
 			"type": "string",
 			"defaultValue": "UnityCatalogBlobConnString"
@@ -38,8 +54,20 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
+					"trainforunity_datalake_accountKey": {
+						"value": "[parameters('trainforunity_datalake_accountKey')]"
+					},
 					"default_properties_GL_KV_NAME_value": {
 						"value": "[parameters('default_properties_GL_KV_NAME_value')]"
+					},
+					"LS_S3_Bucket_properties_typeProperties_url": {
+						"value": "[parameters('LS_S3_Bucket_properties_typeProperties_url')]"
+					},
+					"trainforunity_datalake_properties_typeProperties_url": {
+						"value": "[parameters('trainforunity_datalake_properties_typeProperties_url')]"
+					},
+					"Showmax_2_json_files_properties_pl_comcastfeeds_s3Bucket_to_Datalake_bronze_parameters_windowRunDate": {
+						"value": "[parameters('Showmax_2_json_files_properties_pl_comcastfeeds_s3Bucket_to_Datalake_bronze_parameters_windowRunDate')]"
 					}
 				}
 			},
